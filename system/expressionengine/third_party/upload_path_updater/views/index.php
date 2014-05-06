@@ -29,6 +29,7 @@ $this->table->set_heading(
 );
 
 # Build a table row for each of the upload preferences found
+if (is_array($uploadPreferences) && count($uploadPreferences) > 0):
 foreach ($uploadPreferences as $prefObj) {
     
     # This is to show the flash data after the form has been processed
@@ -52,6 +53,13 @@ foreach ($uploadPreferences as $prefObj) {
         $prefObj->server_path . $updated
     );
 }
+else:
+    $this->table->add_row(array(
+        "data" => "No upload paths detected",
+        "colspan" => 2
+        ));
+endif;
+
 echo $this->table->generate();
 
 # Second table used to position the input fields and house the form.
@@ -86,5 +94,4 @@ $this->table->add_row(
     <?=form_submit(array('name' => 'submit', 'value' => lang('submit'), 'class' => 'submit'));?>
 </div>
 <?= form_close() ?>
-
 
